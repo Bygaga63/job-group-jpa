@@ -20,7 +20,7 @@ public class Application implements Serializable {
     private Long id;
     private String name;
 
-    @Column(nullable = false, name = "client_id")
+    @Column(nullable = false, name = "CLIENT_ID")
     private String clientId = UUID.randomUUID().toString();
 
     public Application() { }

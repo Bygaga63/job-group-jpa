@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +31,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Group create(String name, String description, Visibility visibility, User owner) {
         Group group = new Group(name, description, visibility, owner);
+        group.setGroupId(UUID.randomUUID().toString());
         groupRepository.save(group);
         return group;
     }

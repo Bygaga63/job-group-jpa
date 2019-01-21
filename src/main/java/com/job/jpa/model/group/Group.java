@@ -32,8 +32,8 @@ public class Group extends AbstractEntity {
     @JoinColumn(name="owner", nullable = true)
     private User user;
 
-    @Column(nullable = false, name = "group_id")
-    private String groupId = UUID.randomUUID().toString();
+    @Column(nullable = false, name = "GROUP_ID")
+    private String groupId;
 
     public Group(String name, User user) {
         this.name = name;

@@ -70,7 +70,7 @@ public class AppGroupServiceImpl implements AppGroupService {
 
     @Override
     public boolean remove(String groupId, String clientId) {
-        AppGroup appGroup = findOne(clientId, groupId);
+        AppGroup appGroup = findOne(groupId, clientId);
         groupAppRepo.delete(appGroup);
         return isExist(appGroup.getId());
     }

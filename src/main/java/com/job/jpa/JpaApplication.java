@@ -6,6 +6,7 @@ import com.job.jpa.model.group.Group;
 import com.job.jpa.model.group.GroupUser;
 import com.job.jpa.model.user.User;
 import com.job.jpa.repo.*;
+import com.job.jpa.service.GroupService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +16,7 @@ import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 @AllArgsConstructor
@@ -24,6 +26,7 @@ public class JpaApplication implements CommandLineRunner {
     private GroupUsersRepository groupUsersRepository;
     private GroupRepository groupRepository;
     private ApplicationGroupRepository applicationGroupRepository;
+    private GroupService groupService;
 
     public static void main(String[] args) {
         SpringApplication.run(JpaApplication.class, args);
@@ -37,22 +40,17 @@ public class JpaApplication implements CommandLineRunner {
 //        Group group = new Group("bar");
 
         List<User> users = initUsers();
-        initGroups(users);
+        List<Group> groups = initGroups(users);
         initApplications();
 
 
-//        userRepository.save(user);
-//        applicationRepository.save(application);
-//        groupRepository.save(group);
-
-
-//        GroupUser groupUser = new GroupUser(OWNER, ACTIVE, user, group);
-//        AppGroup appGroup = new AppGroup(application, group, ADMIN, DEFAULT);
-
-//        groupUsersRepository.save(groupUser);
-//        applicationGroupRepository.save(appGroup);
+        Group group = groups.get(0);
+        Group one = groupService.findOne(group.getGroupId());
+        System.out.println(one);
 
         print();
+
+
     }
 
 
@@ -94,7 +92,9 @@ public class JpaApplication implements CommandLineRunner {
     public List<Group> createGroupList(int amount, List<User> users){
         List<Group> groups = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            groups.add(new Group("GROUP" + i, users.get(i)));
+            Group group = new Group("GROUP" + i, users.get(i));
+            group.setGroupId(UUID.randomUUID().toString());
+            groups.add(group);
         }
 
         return groups;
@@ -112,9 +112,10 @@ public class JpaApplication implements CommandLineRunner {
     }
 
 
-    public void initGroups(List<User> users){
+    public List<Group> initGroups(List<User> users){
         List<Group> groups = createGroupList(10, users);
         groups.forEach(groupRepository::save);
+        return groups;
     }
 }
 
