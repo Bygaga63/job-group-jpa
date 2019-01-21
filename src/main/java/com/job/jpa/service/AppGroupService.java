@@ -10,22 +10,22 @@ import java.util.List;
 
 public interface AppGroupService {
 
-    AppGroup addGroupApp(Group group, Application application, ApplicationGroupRole role, ApplicationGroupStatus status);
-    AppGroup addGroupApp(String groupId, String clientId, ApplicationGroupRole role, ApplicationGroupStatus status);
-    AppGroup addGroupApp(AppGroup appGroup);
+    AppGroup add(Group group, Application application, ApplicationGroupRole role, ApplicationGroupStatus status);
+    AppGroup add(String groupId, String clientId, ApplicationGroupRole role, ApplicationGroupStatus status);
+    AppGroup add(AppGroup appGroup);
 
-    AppGroup updateGroupApp(Group group, Application application, ApplicationGroupRole role, ApplicationGroupStatus status);
-    AppGroup updateGroupApp(String groupId, String clientId, ApplicationGroupRole role, ApplicationGroupStatus status);
-    AppGroup updateGroupApp(AppGroup appGroup);
+    AppGroup update(Group group, Application application, ApplicationGroupRole role, ApplicationGroupStatus status);
+    AppGroup update(String groupId, String clientId, ApplicationGroupRole role, ApplicationGroupStatus status);
+    AppGroup update(AppGroup appGroup);
 
-    boolean removeGroupApp(Group group, Application application);
-    boolean removeGroupApp(String groupId, String clientId);
+    boolean remove(Group group, Application application);
+    boolean remove(String groupId, String clientId);
 
-    AppGroup findOneGroupApp(Group group, Application application);
-    AppGroup findOneGroupApp(String groupId, String clientId);
+    AppGroup findOne(Group group, Application application);
+    AppGroup findOne(String groupId, String clientId);
 
-    List<AppGroup> findAllGroupApp(Application application);
-    List<AppGroup> findAllGroupApp(String clientId);
+    List<AppGroup> findAll(Application application);
+    List<AppGroup> findAll(String clientId);
 
 
     boolean isExist(Long id);

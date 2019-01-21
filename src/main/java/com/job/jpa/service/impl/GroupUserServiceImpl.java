@@ -9,67 +9,84 @@ import com.job.jpa.repo.GroupRepository;
 import com.job.jpa.repo.GroupUsersRepository;
 import com.job.jpa.repo.UserRepository;
 import com.job.jpa.service.GroupUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class GroupUserServiceImpl implements GroupUserService {
     private GroupUsersRepository groupUsersRepository;
     private UserRepository userRepository;
     private GroupRepository groupRepository;
     
     @Override
-    public GroupUser addGroupUser(User user, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
-        GroupUser groupUser = new GroupUser(user, group, personGroupRole, personGroupStatus);
-        return groupUser;
+    public GroupUser add(User user, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
+        return new GroupUser(user, group, personGroupRole, personGroupStatus);
     }
 
     @Override
-    public GroupUser addGroupUser(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
+    public GroupUser add(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
         User user = userRepository.findByUserId(userId);
         Group group = groupRepository.findByGroupId(groupId);
 
-        return addGroupUser(user, group, personGroupRole, personGroupStatus);
+        return add(user, group, personGroupRole, personGroupStatus);
     }
 
     @Override
-    public GroupUser updateGroupUser(User User, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
+    public GroupUser update(User user, Group group, PersonGroupRole role, PersonGroupStatus status) {
+        if (group != null && user != null) {
+            return update(group.getGroupId(), user.getUserId(), role, status);
+        }
         return null;
     }
 
     @Override
-    public GroupUser updateGroupUser(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
-        return null;
+    public GroupUser update(String groupId, String userId, PersonGroupRole role, PersonGroupStatus status) {
+        GroupUser groupUser = findOne(groupId, userId);
+        groupUser.setRole(role);
+        groupUser.setStatus(status);
+        return update(groupUser);
+    }
+
+    public GroupUser update(GroupUser groupUser){
+        return groupUsersRepository.save(groupUser);
     }
 
     @Override
-    public boolean removeGroupUser(User User, Group group) {
-        return false;
+    public boolean remove(User user, Group group) {
+        return remove(user.getUserId(), group.getGroupId());
     }
 
     @Override
-    public boolean removeGroupUser(String userId, String groupId) {
-        return false;
+    public boolean remove(String userId, String groupId) {
+        GroupUser groupUser = findOne(groupId, userId);
+        groupUsersRepository.delete(groupUser);
+        return isExist(groupUser.getId());
     }
 
     @Override
-    public GroupUser findOneGroupUser(User User, Group group) {
-        return null;
+    public GroupUser findOne(User user, Group group) {
+        return groupUsersRepository.findByUserAndGroup(user, group);
     }
 
     @Override
-    public GroupUser findOneGroupUser(String userId, String groupId) {
-        return null;
+    public GroupUser findOne(String userId, String groupId) {
+        return groupUsersRepository.findByUser_UserIdAndGroup_GroupId(userId, groupId);
     }
 
     @Override
-    public List<GroupUser> findAllGroupUser(User User) {
-        return null;
+    public List<GroupUser> findAll(User user) {
+        return groupUsersRepository.findAllByUser(user);
     }
 
     @Override
-    public List<GroupUser> findAllGroupUser(String userId) {
-        return null;
+    public List<GroupUser> findAll(String userId) {
+        return groupUsersRepository.findAllByUser_Id(userId);
+    }
+
+    public boolean isExist(Long id) {
+        return groupUsersRepository.existsById(id);
     }
 }

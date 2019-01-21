@@ -40,11 +40,10 @@ public class Group extends AbstractEntity {
         this.user = user;
     }
 
-    public Group(String name, String description, Visibility visibility, User user, String groupId) {
+    public Group(String name, String description, Visibility visibility, User user) {
         this.name = name;
         this.description = description;
         this.visibility = visibility;
         this.user = user;
-        this.groupId = groupId;
     }
 }

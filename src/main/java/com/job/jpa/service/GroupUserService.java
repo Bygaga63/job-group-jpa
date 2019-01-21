@@ -8,18 +8,18 @@ import com.job.jpa.model.user.User;
 import java.util.List;
 
 public interface GroupUserService {
-    GroupUser addGroupUser( User User, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
-    GroupUser addGroupUser(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
+    GroupUser add(User User, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
+    GroupUser add(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
 
-    GroupUser updateGroupUser(User User, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
-    GroupUser updateGroupUser(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
+    GroupUser update(User User, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
+    GroupUser update(String userId, String groupId, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus);
 
-    boolean removeGroupUser(User User, Group group);
-    boolean removeGroupUser(String userId, String groupId);
+    boolean remove(User User, Group group);
+    boolean remove(String userId, String groupId);
 
-    GroupUser findOneGroupUser(User User, Group group);
-    GroupUser findOneGroupUser(String userId, String groupId);
+    GroupUser findOne(User User, Group group);
+    GroupUser findOne(String userId, String groupId);
 
-    List<GroupUser> findAllGroupUser(User User);
-    List<GroupUser> findAllGroupUser(String userId);
+    List<GroupUser> findAll(User User);
+    List<GroupUser> findAll(String userId);
 }

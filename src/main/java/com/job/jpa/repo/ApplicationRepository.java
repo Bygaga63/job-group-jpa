@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ApplicationRepository extends CrudRepository<Application, Long> {
     Application findByClientId(String clientId);
-//    Application findOneGroupApp(Group group, Application application);
+//    Application findOne(Group group, Application application);
 }
