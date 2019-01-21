@@ -4,9 +4,9 @@ import com.job.jpa.model.group.Visibility;
 import lombok.Data;
 
 @Data
-public class GroupRequestModel {
+public class GroupEditRequestModel {
     private String name;
     private String description;
     private Visibility visibility;
-    private String userId;
+    private String groupId;
 }

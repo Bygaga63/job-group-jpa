@@ -1,7 +1,5 @@
 package com.job.jpa.service;
 
-import com.job.jpa.model.app.AppGroup;
-import com.job.jpa.model.app.Application;
 import com.job.jpa.model.group.Group;
 import com.job.jpa.model.group.Visibility;
 import com.job.jpa.model.user.User;
