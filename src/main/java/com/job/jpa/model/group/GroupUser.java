@@ -18,6 +18,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class GroupUser extends AbstractEntity {
 
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID", referencedColumnName = "GROUP_ID")
+    private Group group;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
     private PersonGroupRole role;
@@ -25,14 +33,6 @@ public class GroupUser extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private PersonGroupStatus status;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "GROUP_ID")
-    private Group group;
 
     public GroupUser(User user, Group group, PersonGroupRole role, PersonGroupStatus status) {
         this.user = user;

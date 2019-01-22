@@ -9,6 +9,7 @@ import com.job.jpa.model.user.User;
 
 public interface UserService {
     User findOne(String userId);
+    User create(String name);
 
     boolean isExist(Long id);
 }

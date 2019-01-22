@@ -20,10 +20,15 @@ public class GroupUserServiceImpl implements GroupUserService {
     private GroupUsersRepository groupUsersRepository;
     private UserRepository userRepository;
     private GroupRepository groupRepository;
-    
+
+    @Override
+    public GroupUser add(GroupUser groupUser) {
+        return groupUsersRepository.save(groupUser);
+    }
+
     @Override
     public GroupUser add(User user, Group group, PersonGroupRole personGroupRole, PersonGroupStatus personGroupStatus) {
-        return new GroupUser(user, group, personGroupRole, personGroupStatus);
+        return add(new GroupUser(user, group, personGroupRole, personGroupStatus));
     }
 
     @Override
@@ -61,7 +66,7 @@ public class GroupUserServiceImpl implements GroupUserService {
 
     @Override
     public boolean remove(String userId, String groupId) {
-        GroupUser groupUser = findOne(groupId, userId);
+        GroupUser groupUser = findOne(userId, groupId);
         groupUsersRepository.delete(groupUser);
         return isExist(groupUser.getId());
     }

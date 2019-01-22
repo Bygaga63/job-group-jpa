@@ -5,11 +5,14 @@ package com.job.jpa.service.impl;/*
  *  @author L
  */
 
+import com.job.jpa.model.group.Visibility;
 import com.job.jpa.model.user.User;
 import com.job.jpa.repo.UserRepository;
 import com.job.jpa.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +26,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isExist(Long id) {
         return userRepository.exists(id);
+    }
+
+    @Override
+    public User create(String name) {
+        User user = new User(name);
+//        user.setUserId(UUID.randomUUID().toString());
+        userRepository.save(user);
+        return user;
     }
 
 }

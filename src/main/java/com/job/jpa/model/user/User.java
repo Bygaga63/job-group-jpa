@@ -1,13 +1,11 @@
 package com.job.jpa.model.user;
 
+import com.job.jpa.model.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -17,12 +15,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "USER")
 @ToString
-public class User implements Serializable {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class User extends AbstractEntity {
 
+    @Column(nullable = false, name = "USER_ID")
     private String userId = UUID.randomUUID().toString();
+
 
     private String name;
 //    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
